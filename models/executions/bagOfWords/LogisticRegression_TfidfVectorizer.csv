@@ -1,0 +1,2 @@
+classifier,vectorizer,val_accuracy,val_precision,val_recall,val_f1,test_accuracy,test_precision,test_recall,test_f1
+LogisticRegression,TfidfVectorizer,0.7696880468901914,0.7783817225683857,0.8431785543322163,0.8094855120751854,0.7682837396386586,0.7746102136346039,0.845459434542102,0.8084856276976765

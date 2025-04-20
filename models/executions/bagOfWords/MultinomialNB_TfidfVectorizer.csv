@@ -1,0 +1,2 @@
+classifier,vectorizer,val_accuracy,val_precision,val_recall,val_f1,test_accuracy,test_precision,test_recall,test_f1
+MultinomialNB,TfidfVectorizer,0.7574377066029612,0.7588791414700622,0.8530397319291527,0.803209231046606,0.7576835040778684,0.7576996456800218,0.8543331284572834,0.803120034667052

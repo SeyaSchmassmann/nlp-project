@@ -1,0 +1,2 @@
+classifier,vectorizer,val_accuracy,val_precision,val_recall,val_f1,test_accuracy,test_precision,test_recall,test_f1
+LinearSVC,TfidfVectorizer,0.76091002527848,0.7743578289032834,0.8297750119674485,0.801109185441941,0.7632836285250784,0.7741532976827095,0.8341656422864168,0.8030398284087127
