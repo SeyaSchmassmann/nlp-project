@@ -4,7 +4,7 @@
 
 - <dario.wigger@students.fhnw.ch> – [https://github.com/dario-wigger](https://github.com/dario-wigger)  
 - <seya.schmassmann@students.fhnw.ch> – [https://github.com/SeyaSchmassmann](https://github.com/SeyaSchmassmann)  
-- <matthias.lantsch@students.fhnw.ch> – GitHub account TBD
+- <matthias.lantsch@students.fhnw.ch> – [https://github.com/matthiaslantsch](https://github.com/matthiaslantsch)  
 
 ## Problem Statement
 
