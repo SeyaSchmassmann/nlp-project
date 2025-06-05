@@ -13,6 +13,28 @@ In both the training and test set, the positive sentiment has a higher represent
 
 > The source code for the data analysis can be found in the [dataAnalysis.ipynb](data/dataAnalysis.ipynb) notebook.
 
+## Metrics
+To evaluate the model-performance, the following metrics are used:
+
+* **Precision**: The ratio of true positive predictions to the total number of positive predictions.
+    $$
+    \text{Precision} = \frac{\text{True Positives}}{\text{True Positives} + \text{False Positives}}
+    $$
+
+* **Recall**: The ratio of true positive predictions to the total number of actual positive instances.
+    $$
+    \text{Recall} = \frac{\text{True Positives}}{\text{True Positives} + \text{False Negatives}}
+    $$
+
+* **F1-Score**: The harmonic mean of precision and recall, providing a balance between the two metrics.
+    $$
+    \text{F1-Score} = 2 \cdot \frac{\text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}}
+    $$
+
+* **Training Time**: The time taken to train the model on the training dataset.
+
+* **Inference Time**: The time taken to make predictions on the test dataset.
+
 ## Models
 
 ### Bag-of-Words
