@@ -17,19 +17,22 @@ In both the training and test set, the positive sentiment has a higher represent
 To evaluate the model-performance, the following metrics are used:
 
 * **Precision**: The ratio of true positive predictions to the total number of positive predictions.
-    $$
-    \text{Precision} = \frac{\text{True Positives}}{\text{True Positives} + \text{False Positives}}
-    $$
+
+  <div align="center">
+    <img src="https://latex.codecogs.com/svg.image?\text{Precision}=\frac{\text{True%20Positives}}{\text{True%20Positives}+\text{False%20Positives}}" />
+  </div>
 
 * **Recall**: The ratio of true positive predictions to the total number of actual positive instances.
-    $$
-    \text{Recall} = \frac{\text{True Positives}}{\text{True Positives} + \text{False Negatives}}
-    $$
+    
+    <div align="center">
+      <img src="https://latex.codecogs.com/svg.image?\text{Recall}=\frac{\text{True%20Positives}}{\text{True%20Positives}+\text{False%20Negatives}}" />
+    </div>
 
 * **F1-Score**: The harmonic mean of precision and recall, providing a balance between the two metrics.
-    $$
-    \text{F1-Score} = 2 \cdot \frac{\text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}}
-    $$
+    
+    <div align="center">
+      <img src="https://latex.codecogs.com/svg.image?\text{F1-Score}=2\cdot\frac{\text{Precision}\cdot\text{Recall}}{\text{Precision}+\text{Recall}}" />
+    </div>
 
 * **Training Time**: The time taken to train the model on the training dataset.
 
@@ -49,26 +52,32 @@ The Bag-of-Words (BoW) implementation in this project uses two different vectori
 
 The model is then trained using various machine learning algorithms:
 * **Naive Bayes**: A probabilistic classifier based on Bayes' theorem. It assumes that the features $x_1, x_2, ..., x_n$ are conditionally independent given the class label $y$. The predicted class is the one that maximizes the posterior probability:
-  $$
-  \hat{y} = \arg\max_y P(y) \prod_{i=1}^{n} P(x_i \mid y)
-  $$
+  
+  <div align="center">
+    <img src="https://latex.codecogs.com/svg.image?\hat{y}=\arg\max_y\;P(y)\prod_{i=1}^{n}P(x_i\mid y)" />
+  </div>
 
 * **Logistic Regression**: A linear model that uses the sigmoid   (logistic function) to model the probability of a binary outcome. The probability of a tweet being positive is calculated  as:
-  $$
-  P(y=1 \mid x) = \frac{1}{1 + e^{-(w^T x + b)}}
-  $$
+  
+  <div align="center">
+    <img src="https://latex.codecogs.com/svg.image?P(y=1\mid x)=\frac{1}{1+e^{-(w^T x+b)}}" />
+  </div>
+
     where $ w $ is the weight vector, $ x $ is the feature vector, and $ b $ is the bias term.
 
 * **Linear Support Vector Machine (SVM)**: A linear classifier that identifies the hyperplane which maximizes the margin between classes in the feature space. The model is trained using the hinge loss function:
-  $$
-  L(y, f(x)) = \max(0, 1 - y \cdot f(x))
-  $$
+
+  <div align="center">
+    <img src="https://latex.codecogs.com/svg.image?L(y,\;f(x))=\max(0,\;1-y\cdot f(x))" />
+  </div>
+
   where $ y $ is the true label, $ f(x) $ is the predicted score, and $ x $ is the feature vector.
 
 * **XGBoost**: An optimized gradient boosting algorithm that uses decision trees as base learners. Each new tree is trained to minimize a regularized objective function, improving the model’s predictive accuracy while preventing overfitting. The objective at iteration $ t $ is:
-  $$
-  \mathcal{L}^{(t)} = \sum_{i=1}^{n} l(y_i, \hat{y}_i^{(t-1)} + f_t(x_i)) + \Omega(f_t)
-  $$
+  
+  <div align="center">
+    <img src="https://latex.codecogs.com/svg.image?\mathcal{L}^{(t)}=\sum_{i=1}^{n}l(y_i,\hat{y}_i^{(t-1)}+f_t(x_i))+\Omega(f_t)" />
+  </div>
   where $ l $ is a loss function (e.g., logistic loss), $ f_t $ is the new decision tree, and $ \Omega $ is a regularization term penalizing model complexity.
 
 #### Results
