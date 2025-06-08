@@ -54,13 +54,13 @@ The model is then trained using various machine learning algorithms:
 * **Naive Bayes**: A probabilistic classifier based on Bayes' theorem. It assumes that the features <img src="https://latex.codecogs.com/svg.image?x_1,\;x_2,\;...,\;x_n" height="12"/> are conditionally independent given the class label <img src="https://latex.codecogs.com/svg.image?y" height="12"/>. The predicted class is the one that maximizes the posterior probability:
   
   <div align="center">
-    <img src="https://latex.codecogs.com/svg.image?\hat{y}=\arg\max_y\;P(y)\prod_{i=1}^{n}P(x_i\mid y)" />
+    <img src="https://latex.codecogs.com/svg.image?\hat{y}%20=%20\arg\max_y%20P(y)\prod_{i=1}^{n}P(x_i\mid%20y)" />
   </div>
 
 * **Logistic Regression**: A linear model that uses the sigmoid   (logistic function) to model the probability of a binary outcome. The probability of a tweet being positive is calculated  as:
   
   <div align="center">
-    <img src="https://latex.codecogs.com/svg.image?P(y=1\mid x)=\frac{1}{1+e^{-(w^T x+b)}}" />
+    <img src="https://latex.codecogs.com/svg.image?P(y%3D1%20%7C%20x)%20%3D%20%5Cfrac%7B1%7D%7B1%2Be%5E%7B-(w%5ETx%2Bb)%7D%7D" />
   </div>
 
     where <img src="https://latex.codecogs.com/svg.image?w" height="12"/> is the weight vector, <img src="https://latex.codecogs.com/svg.image?x" height="12"/> is the feature vector, and <img src="https://latex.codecogs.com/svg.image?b" height="12"/> is the bias term.
@@ -68,7 +68,7 @@ The model is then trained using various machine learning algorithms:
 * **Linear Support Vector Machine (SVM)**: A linear classifier that identifies the hyperplane which maximizes the margin between classes in the feature space. The model is trained using the hinge loss function:
 
   <div align="center">
-    <img src="https://latex.codecogs.com/svg.image?L(y,\;f(x))=\max(0,\;1-y\cdot f(x))" />
+    <img src="https://latex.codecogs.com/svg.image?L(y,%20f(x))%20=%20\max(0,%201-y\cdot%20f(x))" />
   </div>
 
   where <img src="https://latex.codecogs.com/svg.image?y" height="12"/> is the true label, <img src="https://latex.codecogs.com/svg.image?f(x)" height="12"/> is the predicted score, and <img src="https://latex.codecogs.com/svg.image?x" height="12"/> is the feature vector.
@@ -76,7 +76,7 @@ The model is then trained using various machine learning algorithms:
 * **XGBoost**: An optimized gradient boosting algorithm that uses decision trees as base learners. Each new tree is trained to minimize a regularized objective function, improving the model’s predictive accuracy while preventing overfitting. The objective at iteration <img src="https://latex.codecogs.com/svg.image?t" height="12"/> is:
   
   <div align="center">
-    <img src="https://latex.codecogs.com/svg.image?\mathcal{L}^{(t)}=\sum_{i=1}^{n}l(y_i,\hat{y}_i^{(t-1)}+f_t(x_i))+\Omega(f_t)" />
+    <img src="https://latex.codecogs.com/svg.image?\mathcal{L}^{(t)}%20=%20\sum_{i=1}^{n}l(y_i,%20\hat{y}_i^{(t-1)}%20+%20f_t(x_i))%20+%20\Omega(f_t)" />
   </div>
   
   where <img src="https://latex.codecogs.com/svg.image?l" height="12"/> is a loss function (e.g., logistic loss), 
