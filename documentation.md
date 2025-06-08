@@ -51,7 +51,7 @@ The Bag-of-Words (BoW) implementation in this project uses two different vectori
 * **TF-IDF Vectorization**: This technique computes the term frequency-inverse document frequency (TF-IDF) score for each word in the document, assigning higher weights to terms that are more informative for a specific document relative to the entire corpus.
 
 The model is then trained using various machine learning algorithms:
-* **Naive Bayes**: A probabilistic classifier based on Bayes' theorem. It assumes that the features $x_1, x_2, ..., x_n$ are conditionally independent given the class label $y$. The predicted class is the one that maximizes the posterior probability:
+* **Naive Bayes**: A probabilistic classifier based on Bayes' theorem. It assumes that the features <img src="https://latex.codecogs.com/svg.image?x_1,\;x_2,\;...,\;x_n" height="12"/> are conditionally independent given the class label <img src="https://latex.codecogs.com/svg.image?y" height="12"/>. The predicted class is the one that maximizes the posterior probability:
   
   <div align="center">
     <img src="https://latex.codecogs.com/svg.image?\hat{y}=\arg\max_y\;P(y)\prod_{i=1}^{n}P(x_i\mid y)" />
@@ -63,7 +63,7 @@ The model is then trained using various machine learning algorithms:
     <img src="https://latex.codecogs.com/svg.image?P(y=1\mid x)=\frac{1}{1+e^{-(w^T x+b)}}" />
   </div>
 
-    where $ w $ is the weight vector, $ x $ is the feature vector, and $ b $ is the bias term.
+    where <img src="https://latex.codecogs.com/svg.image?w" height="12"/> is the weight vector, <img src="https://latex.codecogs.com/svg.image?x" height="12"/> is the feature vector, and <img src="https://latex.codecogs.com/svg.image?b" height="12"/> is the bias term.
 
 * **Linear Support Vector Machine (SVM)**: A linear classifier that identifies the hyperplane which maximizes the margin between classes in the feature space. The model is trained using the hinge loss function:
 
@@ -71,14 +71,18 @@ The model is then trained using various machine learning algorithms:
     <img src="https://latex.codecogs.com/svg.image?L(y,\;f(x))=\max(0,\;1-y\cdot f(x))" />
   </div>
 
-  where $ y $ is the true label, $ f(x) $ is the predicted score, and $ x $ is the feature vector.
+  where <img src="https://latex.codecogs.com/svg.image?y" height="12"/> is the true label, <img src="https://latex.codecogs.com/svg.image?f(x)" height="12"/> is the predicted score, and <img src="https://latex.codecogs.com/svg.image?x" height="12"/> is the feature vector.
 
-* **XGBoost**: An optimized gradient boosting algorithm that uses decision trees as base learners. Each new tree is trained to minimize a regularized objective function, improving the model’s predictive accuracy while preventing overfitting. The objective at iteration $ t $ is:
+* **XGBoost**: An optimized gradient boosting algorithm that uses decision trees as base learners. Each new tree is trained to minimize a regularized objective function, improving the model’s predictive accuracy while preventing overfitting. The objective at iteration <img src="https://latex.codecogs.com/svg.image?t" height="12"/> is:
   
   <div align="center">
     <img src="https://latex.codecogs.com/svg.image?\mathcal{L}^{(t)}=\sum_{i=1}^{n}l(y_i,\hat{y}_i^{(t-1)}+f_t(x_i))+\Omega(f_t)" />
   </div>
-  where $ l $ is a loss function (e.g., logistic loss), $ f_t $ is the new decision tree, and $ \Omega $ is a regularization term penalizing model complexity.
+  
+  where <img src="https://latex.codecogs.com/svg.image?l" height="12"/> is a loss function (e.g., logistic loss), 
+  <img src="https://latex.codecogs.com/svg.image?f_t" height="12"/> is the new decision tree, and 
+  <img src="https://latex.codecogs.com/svg.image?\Omega" height="12"/> is a regularization term penalizing model complexity.
+
 
 #### Results
 The in the previous section described models were trained on the training set and evaluated on the test set. Each model was tested with both vectorization techniques (Count Vectorization and TF-IDF Vectorization).
