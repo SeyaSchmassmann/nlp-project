@@ -1,0 +1,2 @@
+classifier,vectorizer,val_accuracy,val_precision,val_recall,val_f1,test_accuracy,test_precision,test_recall,test_f1
+SGD-Elasticnet,TfIdfVectorizer,0.7522431178643851,0.753011793549478,0.8527525131641934,0.7997844972725435,0.7521722704948999,0.7522546958703465,0.8522971727105101,0.7991571516046536

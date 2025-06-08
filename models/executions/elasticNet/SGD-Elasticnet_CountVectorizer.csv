@@ -1,0 +1,2 @@
+classifier,vectorizer,val_accuracy,val_precision,val_recall,val_f1,test_accuracy,test_precision,test_recall,test_f1
+SGD-Elasticnet,CountVectorizer,0.7676879913330926,0.7638485193142087,0.8680229775011967,0.8126106343408994,0.7683281850707794,0.7641404055106117,0.8672019053472649,0.8124156545209177
