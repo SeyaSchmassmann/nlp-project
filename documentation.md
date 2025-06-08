@@ -108,13 +108,49 @@ Considering the trade-off between precision, recall and f1-score, the Logistic R
 
 ### Elastic Net
 #### Theoretical Background
-TODO Text
+Elastic Net is a linear regression model that combines the penalties of Lasso (L1) and Ridge (L2) regression. This combination allows the model to retain the advantages of both regularization techniques: Sparse feature Selection (L1) and stability under multicollinearity (L2). In the context of logistic regression, Elastic Net helps to prevent overfitting in high-dimensional feature spaces, such as those created by text vectorization techniques like Bag-of-Words.
 
 #### Implementation
-TODO Text
+As in the Bag-of-Words model, the Elastic Net model is trained using two different vectorization techniques:
+* **Count Vectorization**
+* **TF-IDF Vectorization**
+
+As a classifier, the SGDClassifier with Elastic Net regularization is used.
+The SGDClassifier is a linear classifier that uses stochastic gradient descent to optimize the model parameters. The Elastic Net regularization is applied to the loss function, which combines the L1 and L2 penalties.
+
+After identifying the Count Vectorization as the slightly better performing vectorization technique, the hyperparameters of the SGDClassifier were tuned using a grid search with cross-validation. The best hyperparameters were found to be:
+* **alpha**: 0.0001
+* **l1_ratio**: 0.15
+* **penalty**: 'l2'
+
+This means that the model uses a combination of L1 and L2 regularization, with a stronger emphasis on L2 regularization.
 
 #### Results
+The Elastic Net model was trained on the training set and evaluated on the test set using both vectorization techniques.
+
+##### Precision
+The highest test precision was achived with a Count Vectorizer and SGDClassifier, and with the tuned hyperparameters. The precision of the different models ranged from 0.752 and 0.764.
+
+<img src="resources/elasticNet_precision.png" height="300" />
+
+##### Recall
+The highest test recall wias achived with the Count Vectorizer and the SGDClassifier. The model with the tuned hyperparameters achived a recall slightly lower than the model with the default hyperparameters. The recall of the different models ranged from 0.852 and 0.867.
+
+<img src="resources/elasticNet_recall.png" height="300" />
+
+##### F1-Score
+The highest f1-score was achived with the Count Vectorizer and the SGDClassifier, without tuning the hyperparameters. The f1-score of the different models ranged from 0.799 and 0.812.
+
+<img src="resources/elasticNet_f1.png" height="300" />
+
+##### Training Time
 TODO Text
+
+##### Inference Time
+TODO Text
+
+##### Summary
+Among all tested configurations, the Count Vectorizer proved to be the better performing vectorization technique. The differences between the models were not significant, tuning the hyperparameters of the SGDClassifier did not lead to a significant improvement in performance. The best performing model was the SGDClassifier with Count Vectorization, achieving a precision of 0.764, a recall of 0.867 and an f1-score of 0.812.
 
 > The source code for the Elastic Net model can be found in the [elasticNet.ipynb](models/elasticNet.ipynb) notebook.
 
