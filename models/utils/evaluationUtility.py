@@ -6,6 +6,7 @@ import glob
 import math
 import matplotlib.pyplot as plt
 import seaborn as sns
+import time
 
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 from sklearn.metrics import precision_recall_fscore_support
@@ -27,7 +28,7 @@ def evaluate_model(model, X, y):
 
     return precision, recall, f1
 
-def calculate_metrics(model, validation_texts, validation_labels, test_texts, test_labels, classifier_name, vectorizer_name, model_name):
+def calculate_metrics(model, validation_texts, validation_labels, test_texts, test_labels, classifier_name, vectorizer_name, model_name, training_duration):
 
     val_preds = model.predict(validation_texts)
     val_acc = accuracy_score(validation_labels, val_preds)
@@ -50,6 +51,7 @@ def calculate_metrics(model, validation_texts, validation_labels, test_texts, te
         'test_precision': test_report['1']['precision'],
         'test_recall': test_report['1']['recall'],
         'test_f1': test_report['1']['f1-score'],
+        'training_duration': training_duration,
     }
 
     results_name = f"executions/{model_name}/{classifier_name}_{vectorizer_name}"
@@ -64,12 +66,16 @@ def calculate_metrics(model, validation_texts, validation_labels, test_texts, te
     print(f"\nClassifier: {classifier_name} | Vectorizer: {vectorizer_name}")
     print(f"Validation Accuracy: {val_acc:.4f}")
     print(f"Test Accuracy: {test_acc:.4f}")
+    print(f"Training Duration: {training_duration:.2f} seconds")
 
 
 def evaluate_classifier(classifier, classifier_name, vectorizer, vectorizer_name, train_texts, train_labels, validation_texts, validation_labels, test_texts, test_labels, model_name):
     model = make_pipeline(vectorizer, classifier)
+    start_time = time.time()
     model.fit(train_texts, train_labels)
-    calculate_metrics(model, validation_texts, validation_labels, test_texts, test_labels, classifier_name, vectorizer_name, model_name)
+    end_time = time.time()
+    training_duration = end_time - start_time
+    calculate_metrics(model, validation_texts, validation_labels, test_texts, test_labels, classifier_name, vectorizer_name, model_name, training_duration)
     evaluate_model(model, test_texts, test_labels)
 
 def analyze_all_results(results_dir):
