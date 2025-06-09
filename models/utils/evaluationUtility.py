@@ -11,6 +11,7 @@ import time
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 from sklearn.metrics import precision_recall_fscore_support
 from sklearn.pipeline import make_pipeline
+from transformers.trainer_utils import PredictionOutput
 
 def evaluate_model(model, X, y):
     y_pred = model.predict(X)
@@ -31,11 +32,15 @@ def evaluate_model(model, X, y):
 def calculate_metrics(model, validation_texts, validation_labels, test_texts, test_labels, classifier_name, vectorizer_name, model_name, training_duration):
 
     val_preds = model.predict(validation_texts)
+    if isinstance(val_preds, PredictionOutput):
+        val_preds = val_preds.predictions.argmax(-1)
     val_acc = accuracy_score(validation_labels, val_preds)
     val_report = classification_report(validation_labels, val_preds, output_dict=True)
     val_conf_matrix = confusion_matrix(validation_labels, val_preds)
 
     test_preds = model.predict(test_texts)
+    if isinstance(test_preds, PredictionOutput):
+        test_preds = test_preds.predictions.argmax(-1)
     test_acc = accuracy_score(test_labels, test_preds)
     test_report = classification_report(test_labels, test_preds, output_dict=True)
     test_conf_matrix = confusion_matrix(test_labels, test_preds)
