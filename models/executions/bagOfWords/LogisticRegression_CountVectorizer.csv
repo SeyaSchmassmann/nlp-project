@@ -1,2 +1,2 @@
-classifier,vectorizer,val_accuracy,val_precision,val_recall,val_f1,test_accuracy,test_precision,test_recall,test_f1
-LogisticRegression,CountVectorizer,0.7669379704991806,0.7744116613979628,0.8443274293920536,0.8078596619795722,0.7653947865508123,0.7717486741825589,0.8441149354640443,0.8063113475827905
+classifier,vectorizer,val_accuracy,val_precision,val_recall,val_f1,test_accuracy,test_precision,test_recall,test_f1,training_duration
+LogisticRegression,CountVectorizer,0.7669379704991806,0.7743875669505663,0.8443752991862135,0.8078684620316936,0.7653503411186915,0.7716944688323091,0.8441149354640443,0.8062817619755261,9.21680998802185
