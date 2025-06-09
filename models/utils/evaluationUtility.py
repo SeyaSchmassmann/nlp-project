@@ -125,7 +125,8 @@ def analyze_all_results(results_dir):
     # Plot Metrics
     metrics = [
         "val_accuracy", "val_precision", "val_recall", "val_f1",
-        "test_accuracy", "test_precision", "test_recall", "test_f1"
+        "test_accuracy", "test_precision", "test_recall", "test_f1",
+        "training_duration"
     ]
 
     # Filter valid metrics that exist in your DataFrame

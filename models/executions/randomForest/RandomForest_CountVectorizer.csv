@@ -1,0 +1,2 @@
+classifier,vectorizer,val_accuracy,val_precision,val_recall,val_f1,test_accuracy,test_precision,test_recall,test_f1,training_duration
+RandomForest,CountVectorizer,0.582710630850857,0.5817361265879206,0.9996170416467209,0.7354629662240693,0.5814573657192382,0.5802309510009362,0.9998463429625076,0.7343207786711805,6.4270102977752686
