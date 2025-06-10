@@ -45,6 +45,8 @@ def calculate_metrics(model, validation_texts, validation_labels, test_texts, te
     test_report = classification_report(test_labels, test_preds, output_dict=True)
     test_conf_matrix = confusion_matrix(test_labels, test_preds)
 
+    inference_time = measure_inference_time(model, test_texts)
+
     result = {
         'classifier': classifier_name,
         'vectorizer': vectorizer_name,
@@ -57,6 +59,7 @@ def calculate_metrics(model, validation_texts, validation_labels, test_texts, te
         'test_recall': test_report['1']['recall'],
         'test_f1': test_report['1']['f1-score'],
         'training_duration': training_duration,
+        'inference_time': inference_time,
     }
 
     results_name = f"executions/{model_name}/{classifier_name}_{vectorizer_name}"
@@ -82,6 +85,21 @@ def evaluate_classifier(classifier, classifier_name, vectorizer, vectorizer_name
     training_duration = end_time - start_time
     calculate_metrics(model, validation_texts, validation_labels, test_texts, test_labels, classifier_name, vectorizer_name, model_name, training_duration)
     evaluate_model(model, test_texts, test_labels)
+
+def measure_inference_time(model, texts):
+
+    # warm up the model
+    for _ in range(10):
+        model.predict(texts)
+
+    start_time = time.time()
+    _ = model.predict(texts)
+    end_time = time.time()
+    inference_time = end_time - start_time
+
+    print(f"Inference time for {len(texts)} texts: {inference_time:.4f} seconds")
+
+    return inference_time
 
 def analyze_all_results(results_dir):
     result_records = []
@@ -126,7 +144,7 @@ def analyze_all_results(results_dir):
     metrics = [
         "val_accuracy", "val_precision", "val_recall", "val_f1",
         "test_accuracy", "test_precision", "test_recall", "test_f1",
-        "training_duration"
+        "training_duration", "inference_time"
     ]
 
     # Filter valid metrics that exist in your DataFrame

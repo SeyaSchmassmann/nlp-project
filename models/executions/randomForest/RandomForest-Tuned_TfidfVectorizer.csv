@@ -1,2 +1,2 @@
-classifier,vectorizer,val_accuracy,val_precision,val_recall,val_f1,test_accuracy,test_precision,test_recall,test_f1,training_duration
-RandomForest-Tuned,TfidfVectorizer,0.7493541487263535,0.7876290658781328,0.7777884155098133,0.7826778101592042,0.7467721504922331,0.7844676798693979,0.7752765826674862,0.7798450511022239,51.13099694252014
+classifier,vectorizer,val_accuracy,val_precision,val_recall,val_f1,test_accuracy,test_precision,test_recall,test_f1,training_duration,inference_time
+RandomForest-Tuned,TfidfVectorizer,0.7493541487263535,0.7876290658781328,0.7777884155098133,0.7826778101592042,0.7467721504922331,0.7844676798693979,0.7752765826674862,0.7798450511022239,61.61464190483093,1.5669963359832764
