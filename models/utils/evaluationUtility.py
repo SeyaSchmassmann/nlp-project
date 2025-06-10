@@ -1,6 +1,7 @@
 import wandb
 import json
 import pandas as pd
+import numpy as np
 import os
 import glob
 import math
@@ -31,16 +32,24 @@ def evaluate_model(model, X, y):
 
 def calculate_metrics(model, validation_texts, validation_labels, test_texts, test_labels, classifier_name, vectorizer_name, model_name, training_duration):
 
-    val_preds = model.predict(validation_texts)
-    if isinstance(val_preds, PredictionOutput):
-        val_preds = val_preds.predictions.argmax(-1)
+    def process_preds(preds):
+        if isinstance(preds, PredictionOutput):
+            return preds.predictions.argmax(-1)
+        preds = np.array(preds)
+        if preds.ndim == 2 and preds.shape[1] == 1:  # sigmoid output
+            return (preds >= 0.5).astype(int).flatten()
+        if preds.ndim == 1:  # already binary
+            return preds
+        return preds.argmax(axis=-1)  # softmax-style output
+
+    val_preds_raw = model.predict(validation_texts)
+    val_preds = process_preds(val_preds_raw)
     val_acc = accuracy_score(validation_labels, val_preds)
     val_report = classification_report(validation_labels, val_preds, output_dict=True)
     val_conf_matrix = confusion_matrix(validation_labels, val_preds)
 
-    test_preds = model.predict(test_texts)
-    if isinstance(test_preds, PredictionOutput):
-        test_preds = test_preds.predictions.argmax(-1)
+    test_preds_raw = model.predict(test_texts)
+    test_preds = process_preds(test_preds_raw)
     test_acc = accuracy_score(test_labels, test_preds)
     test_report = classification_report(test_labels, test_preds, output_dict=True)
     test_conf_matrix = confusion_matrix(test_labels, test_preds)

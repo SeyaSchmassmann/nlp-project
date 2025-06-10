@@ -230,15 +230,44 @@ TODO Text
 
 #### Theoretical Background
 
-TODO Text
+Long Short-Term Memory (LSTM) networks are a type of recurrent neural network (RNN) designed to capture long-range dependencies in sequential data. Unlike traditional RNNs, LSTMs use a gated architecture to control the flow of information and reduce the vanishing gradient problem. This makes them particularly effective for natural language processing tasks where context and order are important, such as text classification, machine translation, or sentiment analysis.
 
 #### Implementation
 
-TODO Text
+We implemented an LSTM-based sentiment classifier using Keras. Text data was preprocessed using Keras' Tokenizer, which converted raw text into padded integer sequences. Sentiment labels were encoded using LabelEncoder. The LSTM model consisted of an embedding layer, a single LSTM layer, and two dense layers with dropout for regularization.
+
+The model was trained on an NVIDIA RTX A6000 GPU for 10 epochs. The following key components were used:
+
+* Embedding size: 64
+* LSTM units: 64
+* Dropout: 0.5 after LSTM and Dense layers
+* Final activation: Sigmoid (for binary classification)
+* Batch size: 32
+* Epochs: 10
 
 #### Results
 
-TODO Text
+The LSTM model was trained on the training set and evaluated on both validation and test sets. The results indicate stable and consistent performance across all key metrics.
+
+##### Precision
+
+The test precision reached 0.783, demonstrating the model's effectiveness in minimizing false positives.
+
+##### Recall
+
+A test recall of 0.785 indicates the model successfully identified the majority of true positive cases in the dataset.
+
+##### F1-Score
+
+With a test F1-score of 0.784, the model shows a balanced trade-off between precision and recall, which is crucial in sentiment classification.
+
+##### Training Time
+
+The total training duration was approximately 206 seconds (~3.4 minutes) on an NVIDIA RTX A6000 GPU.
+
+##### Inference Time
+
+The model completed inference in approximately 1.76 seconds.
 
 > The source code for the LSTM model can be found in the [lstm.ipynb](models/lstm.ipynb) notebook.
 
