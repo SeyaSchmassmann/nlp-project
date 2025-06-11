@@ -168,33 +168,37 @@ The Elastic Net model was trained on the training set and evaluated on the test 
 
 ##### Precision
 
-The highest test precision was achived with a Count Vectorizer and SGDClassifier, and with the tuned hyperparameters. The precision of the different models ranged from 0.752 and 0.764.
+The highest test precision was achived with a Count Vectorizer and SGDClassifier, and with the tuned hyperparameters. The precision of the different models ranged from 0.750 and 0.773.
 
 <img src="resources/elasticNet_precision.png" height="300" />
 
 ##### Recall
 
-The highest test recall wias achived with the Count Vectorizer and the SGDClassifier. The model with the tuned hyperparameters achived a recall slightly lower than the model with the default hyperparameters. The recall of the different models ranged from 0.852 and 0.867.
+The highest test recall wias achived with the Count Vectorizer and the SGDClassifier. The model with the tuned hyperparameters achived a recall slightly lower than the model with the default hyperparameters. The recall of the different models ranged from 0.849 and 0.857.
 
 <img src="resources/elasticNet_recall.png" height="300" />
 
 ##### F1-Score
 
-The highest f1-score was achived with the Count Vectorizer and the SGDClassifier, without tuning the hyperparameters. The f1-score of the different models ranged from 0.799 and 0.812.
+The highest f1-score was achived with the Count Vectorizer and the SGDClassifier and the TF-IDF Vectorizer with a tuned SGDClassifier. The f1-score of the different models ranged from 0.8 and 0.81.
 
 <img src="resources/elasticNet_f1.png" height="300" />
 
 ##### Training Time
 
-TODO Text
+The training time of the different models show no significant differences and are close to the fastest model of the Bag-of-Words approach. This makes sense, as the models are close to the Bag-of-Words models, but with a different regularization technique.
+
+<img src="resources/elasticNet_training_time.png" height="300" />
 
 ##### Inference Time
 
-TODO Text
+The inference time is in a similar range as the inference time of the Bag-of-Words models, below one second for all models.
+
+<img src="resources/elasticNet_inference_time.png" height="300" />
 
 ##### Summary
 
-Among all tested configurations, the Count Vectorizer proved to be the better performing vectorization technique. The differences between the models were not significant, tuning the hyperparameters of the SGDClassifier did not lead to a significant improvement in performance. The best performing model was the SGDClassifier with Count Vectorization, achieving a precision of 0.764, a recall of 0.867 and an f1-score of 0.812.
+Among all tested configurations, the Count Vectorizer proved to be the better performing vectorization technique. The differences between the models were not significant, tuning the hyperparameters of the SGDClassifier did not lead to a significant improvement in performance. The best performing model was the SGDClassifier with Count Vectorization, achieving a precision of 0.773, a recall of 0.857 and an f1-score of 0.81.
 
 > The source code for the Elastic Net model can be found in the [elasticNet.ipynb](models/elasticNet.ipynb) notebook.
 
