@@ -97,7 +97,7 @@ The in the previous section described models were trained on the training set an
 
 ##### Precision
 
-The highest test precision was achived using a count vectorizer and a Multinomial Naive Bayes model. The precision of the different models ranged from 0.720 and 0.788.
+The highest test precision was achived using a count vectorizer and a Multinomial Naive Bayes model. The precision of the different models ranged from 0.721 and 0.788.
 
 <img src="resources/bow_test_precision.png" height="300" />
 
@@ -116,11 +116,15 @@ The highest f1-score was achived with a TF-IDF vectorizer and Logistic Regressio
 
 ##### Training Time
 
-TODO Text
+The training time varies significantly between the different models. The Linear SVM model with Count Vectorization took the longest time to train (40 seconds), while the Multinomial Naive Bayes model with TF-IDF Vectorization was the fastest (2.2 seconds). The models were trained on NVIDIA Quadro P5000 GPU.
+
+<img src="resources/bow_training_time.png" height="300" />
 
 ##### Inference Time
 
-TODO Text
+The inference time varies between the different models, but is generally low. The Linear SVM model with Count Vectorization has the lowest inference time (0.521 seconds), while the XGBoost model with TF-IDF Vectorization has the highest inference time (0.799 seconds). 
+
+<img src="resources/bow_inference_time.png" height="300" />
 
 ##### Summary
 
