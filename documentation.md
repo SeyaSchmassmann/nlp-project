@@ -307,7 +307,7 @@ The training process took approximately 2904 seconds (~48 minutes), using an NVI
 
 ##### Inference Time
 
-TODO Text
+The model completed inference in approximately 57.7272 seconds.
 
 ##### Summary
 

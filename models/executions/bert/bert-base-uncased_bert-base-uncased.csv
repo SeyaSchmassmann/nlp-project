@@ -1,2 +1,2 @@
-classifier,vectorizer,val_accuracy,val_precision,val_recall,val_f1,test_accuracy,test_precision,test_recall,test_f1,training_duration
-bert-base-uncased,bert-base-uncased,0.8421622822856191,0.8483279890059551,0.8865007180469124,0.8669943820224719,0.8364185870797128,0.8444198487363955,0.8792255685310387,0.8614712911906958,2904.2490792274475
+classifier,vectorizer,val_accuracy,val_precision,val_recall,val_f1,test_accuracy,test_precision,test_recall,test_f1,training_duration,inference_time
+bert-base-uncased,bert-base-uncased,0.8456901580599461,0.8669889436653424,0.8671134514121589,0.8670511930689514,0.8414186981932932,0.8632728391264226,0.8624769514443762,0.8628747117601845,2873.0792315006256,57.72722244262695
