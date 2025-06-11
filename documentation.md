@@ -206,15 +206,68 @@ Among all tested configurations, the Count Vectorizer proved to be the better pe
 
 #### Theoretical Background
 
-TODO Text
+Random Forest is an ensemble learning method that constructs multiple decision trees during training and outputs the mode of their predictions for classification tasks. It is particularly effective for handling high-dimensional data and can capture complex interactions between features. Random Forest mitigates overfitting by averaging the predictions of individual trees, which reduces variance and improves generalization.
+The model is trained using a subset of features and samples, which helps to create diverse trees. The final prediction is made by aggregating the predictions from all trees, typically using majority voting for classification tasks.
 
 #### Implementation
 
-TODO Text
+Like in the previous experiments, the Random Forest model is trained using two different vectorization techniques:
+* **Count Vectorization**
+* **TF-IDF Vectorization**
+
+The Random Forest model is implemented using the `RandomForestClassifier` from the `sklearn.ensemble` module. The model is trained on the training set and evaluated on the test set using both vectorization techniques.
+The hyperparameters of the Random Forest model were tuned using a grid search with cross-validation. The best hyperparameters were found to be:
+* **class_weight**: 'balanced'
+* **max_depth**: 50
+* **max_features**: 'sqrt'
+* **min_samples_leaf**: 1
+* **min_samples_split**: 2
+* **n_estimators**: 200
+
+This means that the model uses a balanced class weight, a maximum depth of 50, a maximum of sqrt features for each split, a minimum of 1 sample per leaf and a minimum of 2 samples to split an internal node. The number of trees in the forest is set to 200.
 
 #### Results
 
-TODO Text
+##### Precision
+
+The finetuned Random Forest model with TF-IDF Vectorization achived the highest test precision of 0.784. The other models achived a significantly lower precision, with the Random Forest model with Count Vectorization achieving the lowest precision of 0.58.
+
+<img src="resources/randomForest_precision.png" height="300" />
+
+##### Recall
+
+The Random Forest model with Count Vectorization achived a recall of 1.0, the Random Forest model with TF-IDF vectorization achieved similar high recall of 0.963. The finetuned model however achived a significantly lower recall of 0.775.
+
+<img src="resources/randomForest_recall.png" height="300" />
+
+##### F1-Score
+
+The finetuned Random Forest model with TF-IDF Vectorization achieved the highest f1-score of 0.78. The other models achived similar f1-scores.
+
+<img src="resources/randomForest_f1.png" height="300" />
+
+##### Training Time
+
+The training time of the finetuned model is significantly higher, taking over a minute. The other models were trained in 14.6 respectively 7.6 seconds. Seing as the finetuned model is trained with 200 trees, increased training time is expected.
+
+<img src="resources/randomForest_training_time.png" height="300" />
+
+##### Inference Time
+
+The inference time of the finetuned model is a half a second slower (1.567 seconds) than the fastest model, which is the Random Forest model with Count Vectorization (0.979 seconds).
+
+<img src="resources/randomForest_inference_time.png" height="300" />
+
+##### Summary
+
+The experiments compared three different configurations of a Random Forest classifier for sentiment analysis, varying in both the vectorization technique and the extent of hyperparameter tuning. The evaluation considered multiple criteria including precision, recall, F1-score, training time, and inference time.
+
+* The finetuned Random Forest model with TF-IDF Vectorization achieved the highest precision (0.784) and F1-score (0.78), indicating a strong balance between true positive rate and false positive rate.
+* The Random Forest model with Count Vectorization achieved the highest recall (1.0), but at the cost of lower precision (0.58), suggesting it may be overly sensitive to positive cases.
+* The finetuned model's training time was significantly longer (over a minute) compared to the other models, which were trained in under 15 seconds. This reflects the increased complexity of training 200 trees with tuned hyperparameters.
+* Inference times were generally low, with the finetuned model taking 1.567 seconds, which is acceptable for many real-time applications.
+
+Overall, the finetuned Random Forest model with TF-IDF Vectorization is the most effective configuration for sentiment analysis in this context, achieving a good balance of precision, recall, and F1-score while maintaining reasonable inference times. The increased training time can be justified by the improved precision.
 
 > The source code for the Random Forest model can be found in the [randomForest.ipynb](models/randomForest.ipynb) notebook.
 
