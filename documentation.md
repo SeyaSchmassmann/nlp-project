@@ -383,3 +383,19 @@ These results confirm that BERT is highly effective for the downstream classific
 > The source code for the BERT model can be found in the [bert.ipynb](models/bert.ipynb) notebook.
 
 ## Discussion
+
+In this project, we explored various approaches for a sentiment analysis using twitter data. Each model was evaluated on precision, recall, F1-score, training time and inference time.
+
+The table below summarizes the performance of the best performing model for each approach:
+
+| Model                                                         | Precision | Recall | F1    | Training Time [s] | Inference Time for Test-Set [s] |
+| ------------------------------------------------------------- | --------- | ------ | ----- | ----------------- | ------------------------------- |
+| Baseline<br>(Count Vectorizer, Multinomial NB)                | 0.76      | 0.76   | 0.76  | 3.74              | 1.014                           |
+| Bag of Words<br>(TF-IDF Vectorizer, Logistic Regression)      | 0.775     | 0.845  | 0.808 | 8.16              | 0.658                           |
+| Elastic Net<br>(Count Vectorizer, SGD-Elasticnet Classifier)  | 0.773     | 0.857  | 0.81  | 3.614             | 0.83                            |
+| Random Forest<br>(TF-IDF Vectorizer, with Finetuning)         | 0.784     | 0.775  | 0.78  | 61.615            | 1.567                           |
+| Recurrent Neural Network                                      | TBD       | TBD    | TBD   | TBD               | TBD                             |
+| LSTM                                                          | 0.783     | 0.785  | 0.784 | 206               | 1.76                            |
+| BERT                                                          | 0.844     | 0.879  | 0.861 | 2904              | 57.727                          |
+
+Most of the models were able to surpass the baseline model, however often with a marginal improvement. The BERT model achived the best performance in terms of precision, recall and F1-score, but also required the most training time and inference time. 
