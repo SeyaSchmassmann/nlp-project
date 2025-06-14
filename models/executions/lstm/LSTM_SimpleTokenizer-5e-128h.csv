@@ -1,0 +1,2 @@
+classifier,vectorizer,val_accuracy,val_precision,val_recall,val_f1,test_accuracy,test_precision,test_recall,test_f1,training_duration,inference_time
+LSTM,SimpleTokenizer-5e-128h,,0.8062125321992639,0.8056890469179699,0.8059086575838179,,0.8036979060524364,0.8031067357052379,0.8033492879078974,328.52934765815735,3.983692169189453

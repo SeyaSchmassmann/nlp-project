@@ -1,0 +1,2 @@
+classifier,vectorizer,val_accuracy,val_precision,val_recall,val_f1,test_accuracy,test_precision,test_recall,test_f1,training_duration,inference_time
+LSTM,SpacyTokenizer-5e-128h,,0.8036018051683912,0.8020833333333334,0.8025925118640893,,0.7999524814240802,0.7983964365256124,0.7989132113059848,324.5154228210449,5.6054089069366455
