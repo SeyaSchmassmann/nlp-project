@@ -1,0 +1,2 @@
+classifier,vectorizer,val_accuracy,val_precision,val_recall,val_f1,test_accuracy,test_precision,test_recall,test_f1,training_duration,inference_time
+RNN,SimpleTokenizer-5e-128h,,0.7834651389159888,0.7844940137226034,0.7835651452320689,,0.7832619940114953,0.7842396497699949,0.7833668314392715,199.08821034431458,2.9849231243133545

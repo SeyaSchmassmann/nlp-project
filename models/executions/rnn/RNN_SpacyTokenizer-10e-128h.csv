@@ -1,0 +1,2 @@
+classifier,vectorizer,val_accuracy,val_precision,val_recall,val_f1,test_accuracy,test_precision,test_recall,test_f1,training_duration,inference_time
+RNN,SpacyTokenizer-10e-128h,,0.7838727208915698,0.7833110516934046,0.7835523462788814,,0.7816654730871618,0.7808685968819599,0.7811918619275823,388.94206857681274,3.4866106510162354
