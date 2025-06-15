@@ -122,7 +122,7 @@ The training time varies significantly between the different models. The Linear 
 
 ##### Inference Time
 
-The inference time varies between the different models, but is generally low. The Linear SVM model with Count Vectorization has the lowest inference time (0.521 seconds), while the XGBoost model with TF-IDF Vectorization has the highest inference time (0.799 seconds). 
+The inference time varies between the different models, but is generally low. The Linear SVM model with Count Vectorization has the lowest inference time (0.521 seconds), while the XGBoost model with TF-IDF Vectorization has the highest inference time (0.799 seconds).
 
 <img src="resources/bow_inference_time.png" height="300" />
 
@@ -212,11 +212,13 @@ The model is trained using a subset of features and samples, which helps to crea
 #### Implementation
 
 Like in the previous experiments, the Random Forest model is trained using two different vectorization techniques:
+
 * **Count Vectorization**
 * **TF-IDF Vectorization**
 
 The Random Forest model is implemented using the `RandomForestClassifier` from the `sklearn.ensemble` module. The model is trained on the training set and evaluated on the test set using both vectorization techniques.
 The hyperparameters of the Random Forest model were tuned using a grid search with cross-validation. The best hyperparameters were found to be:
+
 * **class_weight**: 'balanced'
 * **max_depth**: 50
 * **max_features**: 'sqrt'
@@ -275,15 +277,60 @@ Overall, the finetuned Random Forest model with TF-IDF Vectorization is the most
 
 #### Theoretical Background
 
-TODO Text
+Recurrent Neural Networks (RNNs) are designed to process sequential data by retaining information from previous inputs through their hidden states. This architecture makes RNNs especially well-suited for tasks where the order and context of the data are crucial — for example, text sentiment analysis, speech recognition, or time-series forecasting.
+
+While RNNs are powerful for modeling sequential dependency, their ability to retain information degrades over long sequences due to the vanish­ing gradient problem. This makes them less effective for very long-range dependency, in contrast to LSTMs, which incorporate additional mechanisms (like gates) to aid in retaining information. Nevertheless, RNNs remain a strong and lightweight baseline for many applications, and can perform well when the sequences are not excessively long.
 
 #### Implementation
 
-TODO Text
+The implemented RNN models were constructed using PyTorch. The first approach utilizes a simple tokenizer, which converts text to lower case, removes punctuation, and splits the text into tokens. We performed limited hyperparameter tuning by trying different combinations for the number of epochs and the size of the hidden layer.
+
+The second approach utilizes a more sophisticated spaCy tokenizer. This pipeline performs lemmatization and removal of stop words and punctuation. Furthermore, GloVe embeddings were used to provide semantic information to the network, allowing it to better understand relationships between words.
+
+The main architecture for both methods comprises the following components:
+
+* **Embedding Layer:** Translates each word index into a dense vector representation. In the GloVe-based approach, these embeddings are initialized with pre-trained GloVe vectors and can be fine-tuned during training.
+* **RNN Layer:** An optional multi-layer, bidirectional RNN processes the sequence of word embeddings, retaining context through its hidden states.
+* **Dropout Layer:** Dropout is applied to aid in reducing overfitting by randomly turning off a percentage of neurons during training.
+* **Fully Connected Layer:** The final hidden state (or concatenation of forward and backward states in the bidirectional case) is fed into a fully connected layer, projecting it down to the output dimension (typically 1 for binary sentiment classification).
 
 #### Results
 
-TODO Text
+##### Precision
+
+The precision of the RNN models on the test set falls within a range from 0.767 to 0.791. The highest precision was delivered by the RNN with the simple tokenizer, trained for 10 epochs with a hidden layer size of 128.
+
+<img src="resources/rnn_precision.png" height="300" />
+
+##### Recall
+
+The recall for the RNN models shows a range from 0.767 to 0.79. The highest recall was also demonstrated by the RNN with the simple tokenizer, trained for 10 epochs with a hidden layer size of 128.
+
+<img src="resources/rnn_recall.png" height="300" />
+
+##### F1-Score
+
+The F1-score for the RNN models falls within 0.763 – 0.79. The highest F1-score, reflecting the balance between precision and recall, was produced by the RNN with a simple tokenizer (10 epochs, hidden_dim = 128).
+
+<img src="resources/rnn_f1.png" height="300" />
+
+##### Training Time
+
+Training time for the RNN models was significantly influenced by the number of epochs and the size of the hidden layer. The models trained for 10 epochs naturally took much longer, with the simple tokenizer (10 epochs, hidden_dim = 128) requiring nearly 398 seconds. Overall, training with the simple tokenizer was somewhat slower than with the spaCy tokenizer. The models were trained on an NVIDIA RTX A6000 GPU.
+
+<img src="resources/rnn_training_time.png" height="300" />
+
+##### Inference Time
+
+Inference time for the RNN models range from approximately 2.85 seconds to 3.49 seconds, with the simple tokenizer (10 epochs, hidden_dim = 128) delivering the fastest performance.
+
+<img src="resources/rnn_inference_time.png" height="300" />
+
+##### Summary
+
+Overall, the RNN models performed comparably to their LSTM counterparts, delivering strong precision, recall, and F1-scores — all within a range of 0.767–0.79. The highest-performing configuration was the RNN with a simple tokenizer, trained for 10 epochs with a hidden layer size of 128.
+
+While the spaCy tokenizer brings additional semantic depth to the inputs, it did not outperform the simpler tokenizer in this setting. This suggests that additional complexity may not translate to improved performance for this particular task. The simple RNN, meanwhile, strikes a strong balance between performance and training speed.
 
 > The source code for the Recurrent Neural Network model can be found in the [rnn.ipynb](models/rnn.ipynb) notebook.
 
@@ -300,6 +347,7 @@ Various LSTM-models were implemented using the pyTorch library. The first, simpl
 The second approach uses a more complex spaCy tokenizer, which tokenizes the text, removes stop words and punctuation, and lemmatizes the tokens. Additionaly, a GloVe embedding layer is used to initialize the word embeddings. GloVe (Global Vectors for Word Representation) is a pre-trained word embedding model that captures semantic relationships between words based on their co-occurrence in large text corpora. This helps to capture the meaning of words in a context. For example, the word "good" and "great" would have similar embeddings, as they are often used in similar contexts.
 
 The core model used in both approaches is an LSTM-based sentiment classifier implemented in PyTorch. The model consists of the following components:
+
 * **Embedding Layer**: Maps each word index to a dense vector representation. In the GloVe-based model, this layer is initialized with pre-trained GloVe embeddings and can be optionally frozen or fine-tuned.
 * **LSTM Layer**: A multi-layer, optionally bidirectional Long Short-Term Memory (LSTM) network processes the sequence of word embeddings. This layer captures sequential and contextual information from the input text.
 * **Dropout Layer**: Dropout is applied to the embeddings and hidden states to reduce overfitting.
@@ -400,7 +448,7 @@ These results confirm that BERT is highly effective for the downstream classific
 
 ## Discussion
 
-In this project, we explored various approaches for a sentiment analysis using twitter data. Each model was evaluated on precision, recall, F1-score, training time and inference time.
+In this project, we explored various approaches for a sentiment analysis using twitter data. Each model was evaluated on precision, recall, F1-score, training time and inference time. The training and inference times were measured on different graphics cards due to execution restrictions on our rented GPU, which may affect the comparability of these metrics.
 
 The table below summarizes the performance of the best performing model for each approach:
 
@@ -410,8 +458,8 @@ The table below summarizes the performance of the best performing model for each
 | Bag of Words<br>(TF-IDF Vectorizer, Logistic Regression)      | 0.775     | 0.845  | 0.808 | 8.16              | 0.658                           |
 | Elastic Net<br>(Count Vectorizer, SGD-Elasticnet Classifier)  | 0.773     | 0.857  | 0.81  | 3.614             | 0.83                            |
 | Random Forest<br>(TF-IDF Vectorizer, with Finetuning)         | 0.784     | 0.775  | 0.78  | 61.615            | 1.567                           |
-| Recurrent Neural Network                                      | TBD       | TBD    | TBD   | TBD               | TBD                             |
+| Recurrent Neural Network                                      | 0.79      | 0.79   | 0.79  | 398               | 2.83                            |
 | LSTM<br>(Simple tokenizer, 10 epochs, hidden layer of 128)    | 0.808     | 0.808  | 0.808 | 672.625           | 3.943                           |
 | BERT                                                          | 0.844     | 0.879  | 0.861 | 2904              | 57.727                          |
 
-Most of the models were able to surpass the baseline model, however often with a marginal improvement. The BERT model achived the best performance in terms of precision, recall and F1-score, but also required the most training time and inference time. 
+Most of the models were able to surpass the baseline model, however often with a marginal improvement. The BERT model achived the best performance in terms of precision, recall and F1-score, but also required the most training time and inference time.
