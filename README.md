@@ -3,8 +3,7 @@
 ## Group
 
 - <dario.wigger@students.fhnw.ch> – [https://github.com/dario-wigger](https://github.com/dario-wigger)  
-- <seya.schmassmann@students.fhnw.ch> – [https://github.com/SeyaSchmassmann](https://github.com/SeyaSchmassmann)  
-- <matthias.lantsch@students.fhnw.ch> – [https://github.com/matthiaslantsch](https://github.com/matthiaslantsch)  
+- <seya.schmassmann@students.fhnw.ch> – [https://github.com/SeyaSchmassmann](https://github.com/SeyaSchmassmann)
 
 ## Problem Statement
 
@@ -39,10 +38,6 @@ Additionally, we will use a confusion matrix to analyze the distribution of corr
 ## Expected Outcome
 
 We aim to produce models that classify the sentiment of a given tweet as either positive or negative. This can be used to gather tweets about a subject and analyze how the Twitter public feels about it.
-
-## References
-
-(To be added during the project)
 
 ## Resources
 
