@@ -186,7 +186,7 @@ The highest f1-score was achived with the Count Vectorizer and the SGDClassifier
 
 ##### Training Time
 
-The training time of the different models show no significant differences and are close to the fastest model of the Bag-of-Words approach. This makes sense, as the models are close to the Bag-of-Words models, but with a different regularization technique.
+The training time of the different models show no significant differences and are close to the fastest model of the Bag-of-Words approach. This makes sense, as the models are close to the Bag-of-Words models, but with a different regularization technique. The models were trained on NVIDIA Quadro P5000 GPU.
 
 <img src="resources/elasticNet_training_time.png" height="300" />
 
@@ -248,7 +248,7 @@ The finetuned Random Forest model with TF-IDF Vectorization achieved the highest
 
 ##### Training Time
 
-The training time of the finetuned model is significantly higher, taking over a minute. The other models were trained in 14.6 respectively 7.6 seconds. Seing as the finetuned model is trained with 200 trees, increased training time is expected.
+The training time of the finetuned model is significantly higher, taking over a minute. The other models were trained in 14.6 respectively 7.6 seconds. Seing as the finetuned model is trained with 200 trees, increased training time is expected.  The models were trained on NVIDIA Quadro P5000 GPU.
 
 <img src="resources/randomForest_training_time.png" height="300" />
 
@@ -295,40 +295,56 @@ Long Short-Term Memory (LSTM) networks are a type of recurrent neural network (R
 
 #### Implementation
 
-We implemented an LSTM-based sentiment classifier using Keras. Text data was preprocessed using Keras' Tokenizer, which converted raw text into padded integer sequences. Sentiment labels were encoded using LabelEncoder. The LSTM model consisted of an embedding layer, a single LSTM layer, and two dense layers with dropout for regularization.
+Various LSTM-models were implemented using the pyTorch library. The first, simpler approach uses a simple tokenizer, which lowers the text, removes punctuation and splits the text on whitespaces into tokens. Limited hyperparameter tuning was performed, where various configurations for the number of epochs and the hidden layer size were tested.
 
-The model was trained on an NVIDIA RTX A6000 GPU for 10 epochs. The following key components were used:
+The second approach uses a more complex spaCy tokenizer, which tokenizes the text, removes stop words and punctuation, and lemmatizes the tokens. Additionaly, a GloVe embedding layer is used to initialize the word embeddings. GloVe (Global Vectors for Word Representation) is a pre-trained word embedding model that captures semantic relationships between words based on their co-occurrence in large text corpora. This helps to capture the meaning of words in a context. For example, the word "good" and "great" would have similar embeddings, as they are often used in similar contexts.
 
-* Embedding size: 64
-* LSTM units: 64
-* Dropout: 0.5 after LSTM and Dense layers
-* Final activation: Sigmoid (for binary classification)
-* Batch size: 32
-* Epochs: 10
+The core model used in both approaches is an LSTM-based sentiment classifier implemented in PyTorch. The model consists of the following components:
+* **Embedding Layer**: Maps each word index to a dense vector representation. In the GloVe-based model, this layer is initialized with pre-trained GloVe embeddings and can be optionally frozen or fine-tuned.
+* **LSTM Layer**: A multi-layer, optionally bidirectional Long Short-Term Memory (LSTM) network processes the sequence of word embeddings. This layer captures sequential and contextual information from the input text.
+* **Dropout Layer**: Dropout is applied to the embeddings and hidden states to reduce overfitting.
+* **Fully Connected Layer**: The final hidden state (or concatenation of the last forward and backward states in the bidirectional case) is passed through a fully connected linear layer that projects it to the output dimension (typically 1 for binary sentiment classification).
+* **Output**: The model outputs a single value per input, which is typically passed through a sigmoid function to represent the probability of a positive sentiment.
 
 #### Results
 
-The LSTM model was trained on the training set and evaluated on both validation and test sets. The results indicate stable and consistent performance across all key metrics.
-
 ##### Precision
 
-The test precision reached 0.783, demonstrating the model's effectiveness in minimizing false positives.
+The precision of the LST models on the test set is in a small range between 0.798 and 0.808. The highest precision delivered the LST model with the simple tokenizer with 10 epochs and a hidden layer size of 128.
+
+<img src="resources/lstm_precision.png" height="300" />
 
 ##### Recall
 
-A test recall of 0.785 indicates the model successfully identified the majority of true positive cases in the dataset.
+As with the precision, the recall of the LSTM models is in a small range between 0.798 and 0.808. Again, the highest recall delivered the LSTM model with the simple tokenizer with 10 epochs and a hidden layer size of 128.
+
+<img src="resources/lstm_recall.png" height="300" />
 
 ##### F1-Score
 
-With a test F1-score of 0.784, the model shows a balanced trade-off between precision and recall, which is crucial in sentiment classification.
+The F1-score of the LSTM models is in a small range between 0.798 and 0.808. The highest F1-score delivered the LSTM model with the simple tokenizer with 10 epochs and a hidden layer size of 128.
+
+<img src="resources/lstm_f1.png" height="300" />
 
 ##### Training Time
 
-The total training duration was approximately 206 seconds (~3.4 minutes) on an NVIDIA RTX A6000 GPU.
+Models with 10 epochs take significantly longer to train than models with 5 epochs, which is expected. Generally speaking, the training with the simple tokenizer is slower than the training with the spaCy tokenizer.  The models were trained on NVIDIA Quadro P5000 GPU.
+
+<img src="resources/lstm_training_time.png" height="300" />
 
 ##### Inference Time
 
-The model completed inference in approximately 1.76 seconds.
+The inference time ranges from 3.943 seconds to 5.717 seconds, with the model with the simple tokenizer, 10 epochs and a hidden layer size of 128 being the fastest.
+
+<img src="resources/lstm_inference_time.png" height="300" />
+
+##### Summary
+
+The results indicate, that all LSTM models, regardless of tokenizer choice and hyperparameters, achieved similar performance metrics. The models consistently delivered precision, recall, and F1-scores around 0.8, indicating a solid classification capability for sentiment analysis tasks. The highest-performing model was the LSTM with a simple tokenizer, trained for 10 epochs with a hidden layer size of 128.
+
+While the spaCy tokenizer, combined with GloVe embeddings, brings linguistic richness and semantic depth to the input, it did not outperform the simpler tokenizer in this specific setup. This suggests that the additional complexity of the spaCy tokenizer and GloVe embeddings may not have provided a significant advantage for this particular dataset and task.
+
+In terms of training time, models trained for 10 epochs naturally took longer, with the simple tokenizer models leading to slightly higher durations compared to the spaCy tokenizer.
 
 > The source code for the LSTM model can be found in the [lstm.ipynb](models/lstm.ipynb) notebook.
 
@@ -395,7 +411,7 @@ The table below summarizes the performance of the best performing model for each
 | Elastic Net<br>(Count Vectorizer, SGD-Elasticnet Classifier)  | 0.773     | 0.857  | 0.81  | 3.614             | 0.83                            |
 | Random Forest<br>(TF-IDF Vectorizer, with Finetuning)         | 0.784     | 0.775  | 0.78  | 61.615            | 1.567                           |
 | Recurrent Neural Network                                      | TBD       | TBD    | TBD   | TBD               | TBD                             |
-| LSTM                                                          | 0.783     | 0.785  | 0.784 | 206               | 1.76                            |
+| LSTM<br>(Simple tokenizer, 10 epochs, hidden layer of 128)    | 0.808     | 0.808  | 0.808 | 672.625           | 3.943                           |
 | BERT                                                          | 0.844     | 0.879  | 0.861 | 2904              | 57.727                          |
 
 Most of the models were able to surpass the baseline model, however often with a marginal improvement. The BERT model achived the best performance in terms of precision, recall and F1-score, but also required the most training time and inference time. 
